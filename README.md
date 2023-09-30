@@ -46,28 +46,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Acknowledgments
 We would like to thank the open-source community for their contributions and support in making this project possible.
 
-vbnet
-Copy code
-
-In this template:
-
-- **Overview**: This section provides a high-level description of your ML Logging Class and its purpose. It's essential to give potential users a clear understanding of what the library does and why it's useful.
-
-- **Features**: Highlight the key features of your logging class. Mention what sets it apart and how it can benefit users.
-
-- **Getting Started**: Provide instructions on how to install and use your class. Include code snippets for basic usage to help users get started quickly.
-
-- **Documentation**: Mention where users can find detailed documentation, tutorials, or additional resources related to your logging class.
-
-- **Examples**: If you have provided example notebooks or code in your repository, link to them here so users can see your class in action.
-
-- **Contributing**: Encourage contributions from the open-source community and provide guidelines for how to contribute.
-
-- **License**: Specify the license under which your project is distributed.
-
-- **Acknowledgments**: If you want to acknowledge contributions, support, or inspiration from other projects or individuals, include a section for acknowledgments.
-
-
-
 
 
