@@ -41,7 +41,7 @@ Contributing
 Contributions are welcome! Please read our Contributing Guidelines for details on how to contribute to this project.
 
 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the Apache License 2.0  - see the LICENSE file for details.
 
 Acknowledgments
 We would like to thank the open-source community for their contributions and support in making this project possible.
