@@ -23,10 +23,9 @@ sys.path.append('/content/drive/MyDrive/utilize/')
 from metrics import Metrics
 
 class MLLogger:
-    def __init__(self, log_file='ml_log.csv', artifact_dir = 'artifacts'):
+    def __init__(self, project_name, log_file = 'ml_log.csv'):
         self.log_file = log_file
         self.log_df = None
-        self._load_log()
         self.metric_names = []
         self.custom_metrics = {}
 
@@ -34,13 +33,17 @@ class MLLogger:
             'accuracy': Metrics.evaluate_accuracy,
             'f1_score': Metrics.evaluate_f1_score,
             'roc_auc': Metrics.evaluate_roc_auc,
-            'confusion_matrix': Metrics.evaluate_confusion_matrix
+            'confusion_matrix': Metrics.evaluate_confusion_matrix,
+            'mae' : Metrics.evaluate_mean_absolute_error,
+            'mse' : Metrics.evaluate_mean_squared_error,
+            'rmse' : Metrics.evaluate_root_mean_squared_error
             # Add more metrics here if needed
         }
 
-        self.artifact_dir = artifact_dir  # Directory to store artifacts
-        os.makedirs(self.artifact_dir, exist_ok=True)
+        #self.artifact_dir = artifact_dir  # Directory to store artifacts
+        #os.makedirs(self.artifact_dir, exist_ok=True)
 
+        self.project_name = project_name
         self._load_log()
 
     def _generate_unique_id(self):
@@ -88,10 +91,14 @@ class MLLogger:
 
         if not self.metric_names:
             self.metric_names = list(metric_results.keys())
-            columns = ['ID', 'Date', 'Model', 'Parameters'] + [f"{split}_{metric}" for split in ['train', 'test'] for metric in self.metric_names]
+            columns = ['ID', 'ProjectName', 'Date', 'Model', 'Parameters'] + [f"{split}_{metric}" for split in ['train', 'test'] for metric in self.metric_names]
             self.log_df = pd.DataFrame(columns=columns)
 
-        new_row = {'ID': artifact_name_with_id,'Date': date_str, 'Model': model_name, 'Parameters': params_str}
+        new_row = {'ID': artifact_name_with_id,
+                    'ProjectName' : self.project_name,
+                    'Date': date_str, 
+                    'Model': model_name, 
+                    'Parameters': params_str}
         for metric_name, values in metric_results.items():
             for split in ['train', 'test']:
                 new_row[f"{split}_{metric_name}"] = values[split.lower()]
@@ -99,6 +106,7 @@ class MLLogger:
         self.log_df = self.log_df.append(new_row, ignore_index=True)
         self.log_df.to_csv(self.log_file, index=False)
 
+    """
     def fit_and_log(self,model, X_train, y_train, X_test, y_test,metrics=['accuracy', 'f1_score', 'roc_auc', 'confusion_matrix'],  custom_metric_names=None):
         model.fit(X_train, y_train)
         train_predictions = model.predict(X_train)
@@ -135,6 +143,9 @@ class MLLogger:
 
         self._log_metrics(model, metric_results)
 
+    """
+
+    """
     def fit_and_log_with_hyperparams(self, model, hyperparameter_dict, X_train, y_train, X_test, y_test, metrics=['accuracy', 'f1_score', 'roc_auc']):
       hyperparameter_grid = ParameterGrid(hyperparameter_dict)
 
@@ -170,15 +181,18 @@ class MLLogger:
 
           self._log_metrics(model, metric_results)
 
-
+    """
     def print_log(self):
         print(self.log_df)
 
+
+    """
     def save_model_artifact(self, model, artifact_name):
       artifact_path = os.path.join(self.artifact_dir, artifact_name)
       with open(artifact_path, 'wb') as artifact_file:
           pickle.dump(model, artifact_file)
     
+    """
     def select_best_model(self, metric='accuracy', split='test', ascending=False):
         if self.log_df is None:
             raise ValueError("No log data available. Use the log_model_selection method to add entries.")
