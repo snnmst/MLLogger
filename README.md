@@ -37,6 +37,8 @@ For detailed usage instructions and additional features, please refer to the Doc
 Examples
 We've provided several example notebooks in the Examples directory to demonstrate how to use the ML Logging Class in different machine learning scenarios.
 
+![Sample output of logger class][https://github.com/snnmst/MLLogger/blob/main/ml_logger.png?raw=true]
+
 Contributing
 Contributions are welcome! Please read our Contributing Guidelines for details on how to contribute to this project.
 
